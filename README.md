@@ -10,8 +10,8 @@ Use [excel2pdf.py](https://github.com/2DIPW/excel2pdf/blob/master/excel2pdf.py)
 - `-d` | `--divide`: Divide mode, which will convert each worksheet into a separated pdf file.
 - `-s` | `--sheets`: When divide mode is enabled, which sheets should be converted for each excel file. *Example: -s 1 2 3.* Leave it blank if you want to convert all sheets
 - `-r` | `--orientation`: Orientation of pdf file. **1: Portrait(Default)** 2: Landscape
+- `-z` | `--zoom`: Zoom sheets to a single page in specific direction. **0: Disable(Dafault)** 1: Zoom Tall 2: Zoom Wide
 - `-m` | `--merge`: Automatically merge all converted pdf files into a single pdf file.
-- `-z` | `--zoom`: Zoom excel file to a single page. **0: Disable(Dafault)** 1: Zoom Tall 2: Zoom Wide
 
 ## Example usage
 - If you want to convert all excel files in the current directory to pdf and merge them into one pdf file.

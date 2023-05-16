@@ -18,8 +18,8 @@ if __name__ == "__main__":
     parser.add_argument('-d', '--divide', action='store_true', default=False, help='Divide mode, which will convert each worksheet into a separated pdf file.')
     parser.add_argument('-s', '--sheets', type=int, nargs="+", default=[], help='When divide mode is enabled, which sheets should be converted for each excel file. Example: -s 1 2 3 . Leave it blank if you want to convert all sheets.')
     parser.add_argument('-r', '--orientation', type=int, default=1, help='Orientation of pdf file. 1: Portrait 2: Landscape')
+    parser.add_argument('-z', '--zoom', type=int, default=0, help='Zoom sheets to a single page in specific direction. 0: Disable 1: Zoom Tall 2: Zoom Wide')
     parser.add_argument('-m', '--merge', action='store_true', default=False, help='Automatically merge all converted pdf files into a single pdf file')
-    parser.add_argument('-z', '--zoom', type=int, default=0, help='Zoom excel file to a single page. 0: Disable 1: Zoom Tall 2: Zoom Wide')
 
     args = parser.parse_args()
     input_dir = args.input_dir
