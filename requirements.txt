@@ -1,0 +1,3 @@
+PyPDF2
+pywin32
+tqdm
