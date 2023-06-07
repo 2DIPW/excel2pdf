@@ -32,9 +32,11 @@ if __name__ == "__main__":
 
     mkdir(output_dir)
 
-    files_path = []
-    for root, dirs, files in os.walk(args.input_dir):
-        files_path += [os.path.join(root, f) for f in files if f.split('.')[-1].upper() in ["XLS", "XLSX"]]
+    files = []
+    for f in os.listdir(input_dir):
+        file = os.path.join(input_dir, f)
+        if os.path.isfile(f) and (f.split('.')[-1].upper() in ["XLS", "XLSX"]):
+            files.append(f)
 
     xl = DispatchEx("Excel.Application")
     xl.Visible = False
@@ -46,7 +48,8 @@ if __name__ == "__main__":
 
     print("Converting ...")
 
-    for input_path in tqdm(files_path):
+    for input_file in tqdm(files):
+        input_path = os.path.join(input_dir, input_file)
         workbook = None
         try:
             workbook = xl.Workbooks.Open(input_path)
@@ -62,7 +65,7 @@ if __name__ == "__main__":
                 if sheets_to_convert:  # 指定了需要转换的工作表
                     for sheet in sheets_to_convert:
                         try:
-                            output_file = os.path.join(output_dir, f"{os.path.basename(input_path)}_Sheet{sheet}.pdf")
+                            output_file = os.path.join(output_dir, f"{input_file}_Sheet{sheet}.pdf")
                             worksheet = workbook.Worksheets[sheet-1]
                             worksheet.ExportAsFixedFormat(0, output_file)
                             if merge:
@@ -72,12 +75,12 @@ if __name__ == "__main__":
                             pass
                 else:  # 转换所有工作表
                     for i, sheet in enumerate(workbook.Worksheets):
-                        output_file = os.path.join(output_dir, f"{os.path.basename(input_path)}_Sheet{i+1}.pdf")
+                        output_file = os.path.join(output_dir, f"{input_file}_Sheet{i+1}.pdf")
                         sheet.ExportAsFixedFormat(0, output_file)
                         if merge:
                             pdf_merger.append(output_file)
             else:  # 不启用拆分模式
-                output_file = os.path.join(output_dir, f"{os.path.basename(input_path)}.pdf")
+                output_file = os.path.join(output_dir, f"{input_file}.pdf")
                 workbook.ExportAsFixedFormat(0, output_file)
                 if merge:
                     pdf_merger.append(output_file)
